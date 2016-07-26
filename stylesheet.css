@@ -40,6 +40,12 @@ ul.resultformat {
     top: 150px;
     text-align: center;
 }
+ul.resultformat a {
+    transition: 0.1s ease-in-out;
+}
+ul.resultformat a:link {
+    color: black;
+}
 ul.resultformat li {
     padding: 15px;
     background-color: white;
@@ -48,15 +54,16 @@ ul.resultformat li {
 ul.resultformat li h2 {
     margin-top: 0px;
     text-align: left;
-    float: left
+    word-break: break-all;
+    border-right: solid black 1px;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 ul.resultformat li p {
-    position: relative;
     margin: 0 auto;
     margin-right: 0px;
     text-align: left;
     font-size: 0.6em;
-    width: 90%;
 }
 ul.resultformat a li {
     font-size: 2em;
