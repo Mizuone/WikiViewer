@@ -46,6 +46,9 @@ ul.resultformat a {
 ul.resultformat a:link {
     color: black;
 }
+ul.resultformat a:visited {
+    color: black;
+}
 ul.resultformat li {
     padding: 15px;
     background-color: white;
@@ -72,6 +75,16 @@ ul.resultformat a:hover {
     text-decoration: none;
     color: blue;
 }
+#randombutton {
+    position: relative;
+    top: 70px;
+    cursor: default;
+    transition: 0.1s ease-in-out;
+}
+#randombutton:hover {
+    color: darkorange;
+    box-shadow: 0 0 5px white;
+}
 @media screen and (max-width: 500px) {
     h1.headingone {
         top: 25px;
@@ -80,5 +93,8 @@ ul.resultformat a:hover {
     #formcontrol {
         width: 75%;
         top: 25px;
+    }
+    #randombutton {
+        left: 150px;
     }
 }
