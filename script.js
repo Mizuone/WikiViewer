@@ -4,14 +4,20 @@ $(document).ready(function() {
     WikiSpace = function() {
         $("#formcontrol input").keypress(function (e){
            if (e.which == 13) {
-               var titleContent = $(this).val(),
-                   wikiEntry = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + titleContent + "&format=json&callback=?",
-                   wikiSite = "https://en.wikipedia.org/wiki/";
+               var formInput = $(this).val(),
+                   wikiapi = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + formInput + "&format=json&callback=?",
+                   wikiref = "https://en.wikipedia.org/wiki/";
+               
+               wikiResult(wikiapi, wikiref, formInput);
+               e.preventDefault();
+           } 
+        });
+        function wikiResult(wikiEntry, wikiSite, titleContent) {
                $.ajax({
                    url: wikiEntry,
                    type: 'GET',
                    contentType: "application/json; charset=utf=8",
-                   async: false,
+                   async: true,
                    dataType: 'json',
                    success: function(data, status, jqXHR){
                         $(".responsecontainer").fadeOut(0 ,function(){
@@ -19,7 +25,7 @@ $(document).ready(function() {
                             $(".responsecontainer h1").addClass("headingresult");
                             $(".responsecontainer").append('<ul class="resultformat">' + "</ul>");
                             for (var i = 0; i < data[1].length; i++) {
-                                $(".responsecontainer ul").append('<a href="'+ wikiSite + data[1][i] + '">' + 
+                                $(".responsecontainer ul").append('<a href="'+ wikiSite + data[1][i] + '" target="_blank">' + 
                    "<li>" +
                         '<div class="row">' + 
                             '<div class="col-lg-4">' +
@@ -34,18 +40,20 @@ $(document).ready(function() {
                         }); 
                         $(".responsecontainer").fadeIn();
                         var styleListItem = document.querySelectorAll(".resultformat li");
-                        for (let i = 0; i < styleListItem.length; i++) {
-                            
+                        for (var x = 0; x < styleListItem.length; x++) {
+                            $(styleListItem[x]).on("mouseover", function() {
+                                $(this).css({
+                                  "transition": "0.1s ease-in-out",
+                                  "border-left": "solid 3px red"  
+                                });
+                            })
+                            $(styleListItem[x]).on("mouseleave", function() {
+                                $(this).css({
+                                  "transition": "0.1s ease-in-out",
+                                  "border-left": "none"  
+                                });
+                            })
                         }
-                        /*$(".resultformat li").on("mouseover", function() {
-                            $(this).fadeIn(function() {
-                               $(".resultformat li").css({
-                                  "border-left": "solid 5px red" 
-                               }); 
-                            });
-                        });*/
-                        //$(".res")
-                        //http://ejohn.org/apps/learn/ javascript tutorials random note for later
                    },
                })
                .done(function() {
@@ -57,9 +65,10 @@ $(document).ready(function() {
                .always(function() {
                  console.log("Complete");  
                });
-               e.preventDefault();
-               $(this).val('');
-           } 
+               $("#formcontrol input").val('');
+        }
+        $("#randombutton").on("click", function() {
+                window.location.href = "https://en.wikipedia.org/wiki/Special:Random";
         });
     };
     WikiSpace();
